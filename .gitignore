@@ -1,0 +1,8 @@
+dist/
+
+# Firebase cache
+.firebase/
+
+src/app/.next/
+src/app/firebase-config.ts
+node_modules/

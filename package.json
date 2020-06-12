@@ -1,0 +1,56 @@
+{
+  "name": "nextjs-firebase-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "dev": "npm run clean && next src/app",
+    "preserve": "npm run build-public && npm run build-functions && npm run build-app && npm run copy-deps && npm run install-deps",
+    "serve": "cross-env NODE_ENV=production firebase serve",
+    "deploy": "firebase deploy",
+    "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
+    "build-app": "next build \"src/app\"",
+    "build-public": "cpx \"src/public/**/*.*\" \"dist/public\" -C",
+    "build-functions": "tsc --project src/functions",
+    "lint-app": "tslint --project src/app",
+    "typecheck-app": "tsc --project src/app",
+    "lint-functions": "tslint --project src/functions",
+    "copy-deps": "cpx \"*{package.json,package-lock.json,yarn.lock,tsconfig.json}\" \"dist/functions\" -C",
+    "install-deps": "cd \"dist/functions\" && npm i"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.3.6",
+    "cookie-session": "^1.4.0",
+    "firebase": "^7.15.0",
+    "firebase-admin": "^8.12.1",
+    "firebase-functions": "^3.7.0",
+    "lodash": "^4.17.15",
+    "next": "^9.4.4",
+    "next-redux-wrapper": "^6.0.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-firebaseui": "^4.1.0",
+    "react-redux": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/cookie-session": "^2.0.40",
+    "@types/node": "^14.0.13",
+    "@types/react": "^16.9.36",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "@types/webpack": "^4.41.17",
+    "cpx": "^1.5.0",
+    "cross-env": "^7.0.2",
+    "firebase-tools": "^8.4.2",
+    "node-sass": "^4.14.1",
+    "redux-logger": "^3.0.6",
+    "rimraf": "^3.0.2",
+    "styled-jsx-plugin-sass": "^1.0.0",
+    "ts-loader": "^7.0.5",
+    "tslint": "^6.1.2",
+    "tslint-react": "^5.0.0",
+    "typescript": "^3.9.5"
+  }
+}
