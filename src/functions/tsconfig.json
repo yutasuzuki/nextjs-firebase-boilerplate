@@ -3,6 +3,7 @@
     "lib": ["es6", "dom", "es2016"],
     "module": "commonjs",
     "strict": true,
+    "strictNullChecks": false,
     "outDir": "../../dist/functions",
     "sourceMap": true,
     "target": "es2017",
@@ -10,7 +11,13 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "preserveConstEnums": true,
+    "skipLibCheck": true,
+    "typeRoots": ["types"]
   },
   "compileOnSave": true
 }

@@ -2,8 +2,6 @@
   "functions": {
     "source": "dist/functions",
     "predeploy": [
-      "npm run lint-functions",
-      "npm run lint-app",
       "npm run typecheck-app",
       "npm run build-functions",
       "npm run build-app",
@@ -15,8 +13,16 @@
     "public": "dist/public",
     "rewrites": [
       {
+        "source": "/_api/login",
+        "function": "login"
+      },
+      {
+        "source": "/_api/logout",
+        "function": "logout"
+      },
+      {
         "source": "**/**",
-        "function": "nextApp"
+        "function": "hosting"
       }
     ],
     "predeploy": "npm run build-public"

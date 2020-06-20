@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { commonMiddleware } from "../../utils/middleware/commonMiddleware";
+import { removeTokenCookie } from "../../utils/auth/firebaseSessionHandler";
 
 const handler = (req: Request, res: Response) => {
-  req.session = null;
+  removeTokenCookie(res);
   res.status(200).json({ status: true });
 };
 
-export default commonMiddleware(handler);
+export default handler;

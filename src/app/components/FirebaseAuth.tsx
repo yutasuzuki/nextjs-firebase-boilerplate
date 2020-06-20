@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase/app";
 import "firebase/auth";
-import { authModule } from "../configureStore/modules/authModule";
+import authModule from "../configureStore/modules/authModule";
 
 type Props = {};
 

@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
-import { verifyIdToken } from "../..//utils/auth/firebaseAdmin";
-import { commonMiddleware } from "../../utils/middleware/commonMiddleware";
+// import {} from "next"
+import {
+  verifyIdToken,
+  createSessionCookie,
+} from "../../utils/auth/firebaseAdmin";
+import { setTokenCookie } from "../../utils/auth/firebaseSessionHandler";
 
 const handler = (req: Request, res: Response) => {
   const authorization = JSON.parse(req.headers.authorization);
@@ -8,9 +12,9 @@ const handler = (req: Request, res: Response) => {
     return res.status(400);
   }
   return verifyIdToken(authorization.token)
-    .then((decodedToken) => {
-      req.session.decodedToken = decodedToken;
-      req.session.token = authorization.token;
+    .then(async (decodedToken) => {
+      const sessionCookie = await createSessionCookie(authorization.token);
+      setTokenCookie(res, sessionCookie);
       return decodedToken;
     })
     .then((decodedToken) => {
@@ -21,4 +25,4 @@ const handler = (req: Request, res: Response) => {
     });
 };
 
-export default commonMiddleware(handler);
+export default handler;

@@ -1,16 +1,15 @@
 import { NextPage } from "next";
-import Header from "../../components/Header";
+import App from "../../components/App";
 import { FirebaseAuth } from "../../components/FirebaseAuth";
 
 const Auth: NextPage = () => {
   return (
-    <div>
-      <Header />
+    <App>
       <p>Sign in</p>
       <div>
         <FirebaseAuth />
       </div>
-    </div>
+    </App>
   );
 };
 

@@ -5,3 +5,7 @@ dist/
 
 src/app/.next/
 node_modules/
+
+.env
+.firebaserc
+src/app/firebaseConfig.ts

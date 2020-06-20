@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { authModule } from "../configureStore/modules/authModule";
+import authModule from "../configureStore/modules/authModule";
 
 export default ({ pathname }: { pathname?: any }) => {
   const dispatch = useDispatch();

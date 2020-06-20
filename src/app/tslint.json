@@ -5,9 +5,9 @@
     "no-submodule-imports": false,
     "semicolon": [true, "never"],
     "no-consecutive-blank-lines": false,
-    "indent": [true, "tabs", 2],
+    "indent": [true, "space", 2],
     "no-empty-interface": false,
     "interface-name": [true, "never-prefix"],
-    "trailing-comma": false,
+    "trailing-comma": false
   }
 }

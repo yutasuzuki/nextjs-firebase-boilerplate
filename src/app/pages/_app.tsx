@@ -1,23 +1,33 @@
 import NextApp, { AppInitialProps, AppContext } from "next/app";
-import { get } from "lodash";
-import { authModule } from "../configureStore/modules/authModule";
-import { wrapper } from "../configureStore/store";
+import authModule from "../configureStore/modules/authModule";
+import { getTokenCookie } from "../utils/auth/firebaseSessionHandler";
+import wrapper from "../configureStore/store";
 import styles from "./_app.module.scss?type=global";
 
 class App extends NextApp<AppInitialProps> {
   public static getInitialProps = async ({ Component, ctx }: AppContext) => {
-    const { createServerSide, createClientSide } = authModule.actions;
+    const { createServerSide, createClientSide, logout } = authModule.actions;
     if (typeof window === "undefined") {
       const { req, res } = ctx;
-      const { addSession } = require("../utils/middleware/cookieSession");
-      addSession(req, res);
+      const { verifySessionCookie } = require("../utils/auth/firebaseAdmin");
+      const cookieToken = getTokenCookie(req);
+      let firebaseUser: firebase.User = null;
+      let token: string = null;
+      if (cookieToken) {
+        token = cookieToken;
+        firebaseUser = await verifySessionCookie(token).catch(() => {
+          firebaseUser = null;
+          token = null;
+          ctx.store.dispatch(logout());
+        });
+      }
       const payload = {
-        firebaseUser: get(req, "session.decodedToken", null),
-        token: get(req, "session.token", null),
+        firebaseUser,
+        token,
       };
       ctx.store.dispatch(createServerSide(payload));
     } else {
-      if (!ctx.store.getState().auth.authUser) {
+      if (!ctx.store.getState().auth.user) {
         ctx.store.dispatch(createClientSide());
       }
     }

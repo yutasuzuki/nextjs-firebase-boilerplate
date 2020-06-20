@@ -1,12 +1,12 @@
+require("dotenv").config();
+
 module.exports = {
   distDir: "../../dist/functions/next",
   env: {
-    PROJECT_ID: "XXXXXXXXX",
-    CLIENT_EMAIL: "firebase-adminsdk-nk9f8@XXXXXXX.iam.gserviceaccount.com",
-    PRIVATE_KEY: `-----BEGIN PRIVATE KEY-----\nXXXXXXXXXX\n-----END PRIVATE KEY-----\n`,
-    DATABASE_URL: "https://XXXXXXX.firebaseio.com",
-    SESSION_SECRET_CURRENT: "XXXXXXXXXXXXX",
-    SESSION_SECRET_PREVIOUS: "XXXXXXXXXXXXXXX",
+    PROJECT_ID: process.env.PROJECT_ID,
+    CLIENT_EMAIL: process.env.CLIENT_EMAIL,
+    PRIVATE_KEY: process.env.PRIVATE_KEY,
+    DATABASE_URL: process.env.DATABASE_URL,
   },
   webpack: (config, options) => {
     const { defaultLoaders, dir } = options;
@@ -23,6 +23,15 @@ module.exports = {
         "sass-loader",
       ],
     });
+
+    config.node = {
+      fs: "empty",
+      child_process: "empty",
+      net: "empty",
+      dns: "empty",
+      tls: "empty",
+    };
+    // config.externals = [...config.externals, nodeExternals()];
     config.module.rules.push({
       oneOf: [
         {
