@@ -33,4 +33,6 @@ export const makeStore: MakeStore<RootState> = (context: Context) => {
   });
 };
 
-export default createWrapper<RootState>(makeStore, { debug: true });
+const debug = process.env.NODE_ENV !== "production";
+
+export default createWrapper<RootState>(makeStore, { debug });
