@@ -1,8 +1,8 @@
 import { https } from "firebase-functions";
 import path from "path";
 import next from "next";
-import loginHandler from "./apis/login";
-import logoutHandler from "./apis/logout";
+import loginHandler from "./api/login";
+import logoutHandler from "./api/logout";
 
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({
