@@ -9,3 +9,5 @@ node_modules/
 .env
 .firebaserc
 src/app/firebaseConfig.ts
+
+.DS_Store
