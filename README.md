@@ -11,9 +11,9 @@
 ## Usage
 
 1. npm i で module をインストール
-2. .firebaserc の project-key を書き換え
-3. src/app/firebaseConfig.ts を書き換え
-4. src/app/next.config.js の env を書き換え
+2. .firebaserc.example を.firebaserc へリネームし、内容を書き換える
+3. .env.example を.env へリネームし、内容を書き換える
+4. src/app/firebaseConfig.ts.example を firebaseConfig.ts へリネームし、内容を書き換える
 5. npm run dev や npm run serve ができるはず
 
 ## 参考

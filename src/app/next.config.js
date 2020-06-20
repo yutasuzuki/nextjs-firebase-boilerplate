@@ -31,7 +31,6 @@ module.exports = {
       dns: "empty",
       tls: "empty",
     };
-    // config.externals = [...config.externals, nodeExternals()];
     config.module.rules.push({
       oneOf: [
         {
