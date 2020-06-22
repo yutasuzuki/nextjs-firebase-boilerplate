@@ -32,8 +32,6 @@
     "lodash": "^4.17.15",
     "next": "^9.4.4",
     "next-redux-wrapper": "^6.0.2",
-    "next-session": "^3.2.3",
-    "nookies": "^2.3.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-firebaseui": "^4.1.0",
