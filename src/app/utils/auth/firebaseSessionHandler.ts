@@ -1,6 +1,10 @@
 import firebase from "firebase/app";
 import { serialize, parse } from "cookie";
 
+const TOKEN_NAME = "__session";
+const MAX_AGE = 60 * 60 * 8; // 8 hours
+const EXPIRES = new Date(Date.now() + MAX_AGE * 1000);
+
 type SetSession = (user: firebase.User) => Promise<Response>;
 export const setSession: SetSession = (user) => {
   if (user) {
@@ -11,7 +15,14 @@ export const setSession: SetSession = (user) => {
           authorization: JSON.stringify({ token }),
         },
         credentials: "same-origin",
-      });
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (document.domain === "localhost") {
+            document.cookie = `${TOKEN_NAME}=${data.sessionCookie}; max-age=${MAX_AGE}; expires=${EXPIRES}; domain=${document.domain}; path=/;`;
+          }
+          return data;
+        });
     });
   }
 
@@ -21,19 +32,15 @@ export const setSession: SetSession = (user) => {
   });
 };
 
-const TOKEN_NAME = "__session";
-const MAX_AGE = 60 * 60 * 8; // 8 hours
-
 export const setTokenCookie = (res, token) => {
   const cookie = serialize(TOKEN_NAME, token, {
     maxAge: MAX_AGE,
-    expires: new Date(Date.now() + MAX_AGE * 1000),
+    expires: EXPIRES,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     path: "/",
     sameSite: "lax",
   });
-
   res.setHeader("Set-Cookie", cookie);
 };
 
@@ -42,12 +49,10 @@ export const removeTokenCookie = (res) => {
     maxAge: -1,
     path: "/",
   });
-
   res.setHeader("Set-Cookie", cookie);
 };
 
 export const parseCookies = (req) => {
-  console.log("req.headers.cookie", req.headers.cookie);
   if (req.cookies) return req.cookies;
   const cookie = req.headers?.cookie;
   return parse(cookie || "");

@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "12"
+    "node": "10"
   },
   "scripts": {
-    "dev": "npm run clean && next src/app",
+    "dev": "next src/app",
     "preserve": "npm run build-public && npm run build-functions && npm run build-app && npm run copy-deps && npm run install-deps",
     "serve": "cross-env NODE_ENV=production firebase serve",
     "deploy": "cross-env NODE_ENV=production firebase deploy",
@@ -17,7 +17,7 @@
     "lint-app": "tslint --project src/app",
     "typecheck-app": "tsc --project src/app",
     "lint-functions": "tslint --project src/functions",
-    "copy-deps": "cpx \"*{package.json,package-lock.json,yarn.lock,tsconfig.json}\" \"dist/functions\" -C",
+    "copy-deps": "cpx \"*{package.json,package-lock.json,yarn.lock,tsconfig.json}\" \"dist/functions\" -C && cpx src/functions/tsconfig.json dist/functions -C",
     "install-deps": "cd \"dist/functions\" && npm i"
   },
   "dependencies": {
@@ -32,6 +32,8 @@
     "lodash": "^4.17.15",
     "next": "^9.4.4",
     "next-redux-wrapper": "^6.0.2",
+    "next-session": "^3.2.3",
+    "nookies": "^2.3.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-firebaseui": "^4.1.0",

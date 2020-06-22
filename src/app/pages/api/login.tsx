@@ -1,12 +1,10 @@
-import { Request, Response } from "express";
-// import {} from "next"
 import {
   verifyIdToken,
   createSessionCookie,
 } from "../../utils/auth/firebaseAdmin";
 import { setTokenCookie } from "../../utils/auth/firebaseSessionHandler";
 
-const handler = (req: Request, res: Response) => {
+const handler = (req, res) => {
   const authorization = JSON.parse(req.headers.authorization);
   if (!authorization && !authorization.token) {
     return res.status(400);
@@ -15,10 +13,12 @@ const handler = (req: Request, res: Response) => {
     .then(async (decodedToken) => {
       const sessionCookie = await createSessionCookie(authorization.token);
       setTokenCookie(res, sessionCookie);
-      return decodedToken;
+      return { decodedToken, sessionCookie };
     })
-    .then((decodedToken) => {
-      return res.status(200).json({ status: true, decodedToken });
+    .then(({ decodedToken, sessionCookie }) => {
+      return res
+        .status(200)
+        .json({ status: true, decodedToken, sessionCookie });
     })
     .catch((error) => {
       return res.status(500).json({ error });

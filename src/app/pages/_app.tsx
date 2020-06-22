@@ -1,7 +1,7 @@
 import NextApp, { AppInitialProps, AppContext } from "next/app";
 import authModule from "../configureStore/modules/authModule";
-import { getTokenCookie } from "../utils/auth/firebaseSessionHandler";
 import wrapper from "../configureStore/store";
+import { getTokenCookie } from "../utils/auth/firebaseSessionHandler";
 import styles from "./_app.module.scss?type=global";
 
 class App extends NextApp<AppInitialProps> {
