@@ -46,7 +46,7 @@
     "cpx": "^1.5.0",
     "cross-env": "^7.0.2",
     "firebase-tools": "^8.4.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "redux-logger": "^3.0.6",
     "rimraf": "^3.0.2",
     "styled-jsx-plugin-sass": "^1.0.0",
